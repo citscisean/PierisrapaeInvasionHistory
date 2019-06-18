@@ -1,0 +1,30 @@
+## Reads were "cleaned" using the script:
+qsub RunCleanReads
+
+## Reads were mapped to the P. rapae genome while adding read groups using the script: (the script was submitted in sections as separate jobs to speed run times)
+qsub RunBWA_RG
+
+## Variants were called using GenomeAnalysisTK-3.8-0-ge9d806836 using the script:(that calls on associated files found in this directory) 
+qsub RunHaplotypeCaller_WDL
+
+## g.vcf output files were then combined using the scripts:
+qsub RunCombineGVCFs_batch1
+qsub RunCombineGVCFs_batch2
+qsub RunCombineGVCFs_batch3
+qsub RunCombineGVCFs_batch4
+qsub RunCombineGVCFs_batch5
+qsub RunCombineGVCFs_batch6
+qsub RunCombineGVCFs_batch7
+qsub RunCombineGVCFs_batch8
+qsub RunCombineGVCFs_batch9
+qsub RunCombineGVCFs_batch10
+qsub RunCombineGVCFs_batch11
+qsub RunCombineGVCFs_batch12
+qsub RunCombineGVCFs_batch13
+qsub RunCombineGVCFs_batch14
+
+## Genotypes were then called with script:
+qsub RunGenotypeGVCFs 
+
+## SNPs were filtered from the final vcf file using the script:
+qsub RunFilterSNPs
