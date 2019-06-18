@@ -1,0 +1,16 @@
+scaffold64_cov85
+scaffold1059_cov89
+scaffold233_cov87
+scaffold38_cov86
+scaffold532_cov86
+scaffold555_cov85
+scaffold617_cov90
+scaffold775_cov85
+scaffold837_cov89
+scaffold425_cov87
+scaffold54_cov88
+scaffold172_cov81
+scaffold215_cov81
+scaffold40_cov83
+scaffold197_cov82
+scaffold2713_cov67
