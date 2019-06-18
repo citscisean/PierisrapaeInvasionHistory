@@ -1,0 +1,207 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m abe
+#$ -r y
+#$ -q long
+#$ -pe smp 2
+#$ -N RunFst_100kb_K8
+set path = ( $path /FST/ )
+
+### Calculate Fst between populations (K = 8)
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_2 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs2
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs3
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_4 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs4
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_5 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs5
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_6 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs6
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_1 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP1vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs3
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_4 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs4
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_5 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs5
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_6 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs6
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_2 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP2vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--weir-fst-pop ../popfilters/POP_4 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP3vs4
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--weir-fst-pop ../popfilters/POP_5 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP3vs5
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--weir-fst-pop ../popfilters/POP_6 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP3vs6
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP3vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_3AUS \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP3vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_4 \
+--weir-fst-pop ../popfilters/POP_5 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP4vs5
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_4 \
+--weir-fst-pop ../popfilters/POP_6 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP4vs6
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_4 \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP4vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_4 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP4vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_5 \
+--weir-fst-pop ../popfilters/POP_6 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP5vs6
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_5 \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP5vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_5 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP5vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_6 \
+--weir-fst-pop ../popfilters/POP_7 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP6vs7
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_6 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP6vs8
+
+../vcftools/bin/vcftools --vcf ./RAD1_A_Het06.recode.vcf \
+--weir-fst-pop ../popfilters/POP_7 \
+--weir-fst-pop ../popfilters/POP_8 \
+--fst-window-size 100000 \
+--fst-window-step 50000 \
+--out ./RAD1_A_Het06_POP7vs8
+
+

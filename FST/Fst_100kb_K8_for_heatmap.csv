@@ -1,0 +1,65 @@
+Comparison,POPa,POPb,POPa_name,POPb_name,Fst
+1vs2,1,2,Africa,Europe,0.026401
+1vs3,1,3,Africa,Australia,0.17397
+1vs4,1,4,Africa,USA-E,0.053907
+1vs5,1,5,Africa,USA-W,0.14027
+1vs6,1,6,Africa,Russia,0.41126
+1vs7,1,7,Africa,Asia,0.28479
+1vs8,1,8,Africa,New Zealand,0.16434
+2vs3,2,3,Europe,Australia,0.13454
+2vs4,2,4,Europe,USA-E,0.029735
+2vs5,2,5,Europe,USA-W,0.10641
+2vs6,2,6,Europe,Russia,0.31988
+2vs7,2,7,Europe,Asia,0.21695
+2vs8,2,8,Europe,New Zealand,0.12041
+3vs4,3,4,Australia,USA-E,0.093948
+3vs5,3,5,Australia,USA-W,0.069654
+3vs6,3,6,Australia,Russia,0.42081
+3vs7,3,7,Australia,Asia,0.30363
+3vs8,3,8,Australia,New Zealand,0.018391
+4vs5,4,5,USA-E,USA-W,0.065775
+4vs6,4,6,USA-E,Russia,0.32277
+4vs7,4,7,USA-E,Asia,0.22932
+4vs8,4,8,USA-E,New Zealand,0.078952
+5vs6,5,6,USA-W,Russia,0.39348
+5vs7,5,7,USA-W,Asia,0.28285
+5vs8,5,8,USA-W,New Zealand,0.061025
+6vs7,6,7,Russia,Asia,0.16127
+6vs8,6,8,Russia,New Zealand,0.41495
+7vs8,7,8,Asia,New Zealand,0.28149
+1vs2,2,1,Europe,Africa,0.026401
+1vs3,3,1,Australia,Africa,0.17397
+1vs4,4,1,USA-E,Africa,0.053907
+1vs5,5,1,USA-W,Africa,0.14027
+1vs6,6,1,Russia,Africa,0.41126
+1vs7,7,1,Asia,Africa,0.28479
+1vs8,8,1,New Zealand,Africa,0.16434
+2vs3,3,2,Australia,Europe,0.13454
+2vs4,4,2,USA-E,Europe,0.029735
+2vs5,5,2,USA-W,Europe,0.10641
+2vs6,6,2,Russia,Europe,0.31988
+2vs7,7,2,Asia,Europe,0.21695
+2vs8,8,2,New Zealand,Europe,0.12041
+3vs4,4,3,USA-E,Australia,0.093948
+3vs5,5,3,USA-W,Australia,0.069654
+3vs6,6,3,Russia,Australia,0.42081
+3vs7,7,3,Asia,Australia,0.30363
+3vs8,8,3,New Zealand,Australia,0.018391
+4vs5,5,4,USA-W,USA-E,0.065775
+4vs6,6,4,Russia,USA-E,0.32277
+4vs7,7,4,Asia,USA-E,0.22932
+4vs8,8,4,New Zealand,USA-E,0.078952
+5vs6,6,5,Russia,USA-W,0.39348
+5vs7,7,5,Asia,USA-W,0.28285
+5vs8,8,5,New Zealand,USA-W,0.061025
+6vs7,7,6,Asia,Russia,0.16127
+6vs8,8,6,New Zealand,Russia,0.41495
+7vs8,8,7,New Zealand,Asia,0.28149
+1vs1,1,1,Africa,Africa,NA
+2vs,2,2,Europe,Europe,NA
+3vs3,3,3,Australia,Australia,NA
+4vs4,4,4,USA-E,USA-E,NA
+5vs5,5,5,USA-W,USA-W,NA
+6vs6,6,6,Russia,Russia,NA
+7vs7,7,7,Asia,Asia,NA
+8vs8,8,8,New Zealand,New Zealand,NA
