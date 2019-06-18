@@ -1,0 +1,153 @@
+#!/bin/bash
+#$ -M <email>
+#$ -m ae
+#$ -r y
+#$ -q long
+#$ -pe smp 1
+#$ -N Piloop_POP_1.1
+
+
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1.windowed.pi
+rm POP_1.1_pi_n1000
+rm POP_1.1_average_pi
+
+
+## Create a vcf with subset of all individuals from given POP
+        ./vcftools/bin/vcftools --vcf ./PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+        --keep ./popfilters/POP_1.1 \
+        --recode \
+        --out ./RAD1_A_Het06_POP_1.1_all
+
+
+i="0"
+while [ $i -lt 1000 ]
+do
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_a
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_a \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_a
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_a.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_a.recode.vcf.gz
+	    ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_a.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_a2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_a2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_a2.recode.vcf.gz
+
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_b
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_b \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_b
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_b.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_b.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_b.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_b2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_b2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_b2.recode.vcf.gz
+
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_c
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_c \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_c
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_c.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_c.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_c.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_c2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_c2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_c2.recode.vcf.gz
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_d
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_d \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_d
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_d.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_d.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_d.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_d2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_d2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_d2.recode.vcf.gz
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_e
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_e \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_e
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_e.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_e.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_e.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_e2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_e2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_e2.recode.vcf.gz
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_f
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_f \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_f
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_f.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_f.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_f.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_f2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_f2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_f2.recode.vcf.gz
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_g
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_g \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_g
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_g.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_g.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_g.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_g2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_g2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_g2.recode.vcf.gz
+
+        sort -R ./popfilters/POP_1.1 | head -n 1 > POP_1.1_NEW_subset_h
+        ./vcftools/bin/vcftools --vcf ./RAD1_A_Het06_POP_1.1_all.recode.vcf \
+        --keep ./POP_1.1_NEW_subset_h \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1_h
+
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_h.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_h.recode.vcf.gz
+        ./bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_POP_1.1_h.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_POP_1.1_h2.recode.vcf
+        ./htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_POP_1.1_h2.recode.vcf
+        ./htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_POP_1.1_h2.recode.vcf.gz
+
+
+        ## Merge all the vcf files together, allowing for same individual to appear more than once
+	    ./bcftools-1.6/bcftools merge --force-samples ./OUTPUT/RAD1_A_Het06_POP_1.1_a2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_b2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_c2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_d2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_e2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_f2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_g2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_POP_1.1_h2.recode.vcf.gz > ./OUTPUT/merged_POP_1.1.vcf
+
+        ## Calculate pi
+        ./vcftools/bin/vcftools --vcf ./OUTPUT/merged_POP_1.1.vcf \
+        --window-pi 10000 \
+        --window-pi-step 5000 \
+        --out ./OUTPUT/RAD1_A_Het06_POP_1.1
+
+        ## Calculate average pi across sites and write to file
+        sed -i '/nan$/d' ./OUTPUT/RAD1_A_Het06_POP_1.1.windowed.pi
+        tail -n +2 ./OUTPUT/RAD1_A_Het06_POP_1.1.windowed.pi | awk '{ total += $5 } END { print total/NR }' > POP_1.1_average_pi
+        cat POP_1.1_average_pi >> POP_1.1_pi_n1000
+
+
+        i=$[$i+1]
+done
+
+rm POP_1.1_average_pi
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1.windowed.pi
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_a
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_b
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_c
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_d
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_e
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_f
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_g
+rm ./OUTPUT/RAD1_A_Het06_POP_1.1_h
+
+
