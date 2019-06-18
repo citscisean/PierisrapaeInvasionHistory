@@ -1,0 +1,159 @@
+#!/bin/bash
+#$ -M <email>
+#$ -m ae
+#$ -r y
+#$ -q long
+#$ -pe smp 1
+#$ -N tajDloop_POP_i
+#$ -t 1-37
+
+## bash index starts with zero, so need to account for this
+((SGE_TASK_ID=SGE_TASK_ID-1))
+
+## Set names of files to process (must match number of jobs set with -t)
+names=( POP_1.1 POP_1.2 POP_1.3 POP_2.1 POP_2.11 POP_2.12 POP_2.2 POP_2.3 POP_2.4 POP_2.5 POP_2.6 POP_2.7 POP_2.8 POP_2.9 POP_3.1 POP_3.2 POP_3.3 POP_3.4 POP_4.1 POP_4.2 POP_4.3 POP_4.4 POP_4.5 POP_4.6 POP_4.7 POP_4.8 POP_4.9 POP_5.1 POP_5.2 POP_5.3 POP_6.1 POP_7.1 POP_7.2 POP_7.3 POP_7.4 POP_7.5 POP_8.1 )
+
+
+rm ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}.Tajima.D
+rm ${names[ ${SGE_TASK_ID} ]}_tajD_n1000
+rm ${names[ ${SGE_TASK_ID} ]}_average_tajD
+
+
+## Create a vcf with subset of all individuals from given POP
+        ../vcftools/bin/vcftools --vcf ../Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+        --keep ../popfilters/${names[ ${SGE_TASK_ID} ]} \
+        --recode \
+        --out ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all
+
+
+i="0"
+while [ $i -lt 1000 ]
+do
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_a
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_a \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a.recode.vcf.gz
+		../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a2.recode.vcf.gz
+
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_b
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_b \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b2.recode.vcf.gz
+
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_c
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_c \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c2.recode.vcf.gz
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_d
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_d \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d2.recode.vcf.gz
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_e
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_e \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e2.recode.vcf.gz
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_f
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_f \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f2.recode.vcf.gz
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_g
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_g \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g2.recode.vcf.gz
+
+        sort -R ../popfilters/${names[ ${SGE_TASK_ID} ]} | head -n 1 > ${names[ ${SGE_TASK_ID} ]}_NEW_subset_h
+        ../vcftools/bin/vcftools --vcf ./RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_all.recode.vcf \
+        --keep ./${names[ ${SGE_TASK_ID} ]}_NEW_subset_h \
+        --recode \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h
+
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h.recode.vcf.gz
+        ../bcftools-1.6/bcftools annotate -x INFO,FORMAT ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h.recode.vcf.gz > ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h2.recode.vcf
+        ../htslib-1.6/bgzip -f ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h2.recode.vcf
+        ../htslib-1.6/tabix ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h2.recode.vcf.gz
+
+
+        ## Merge all the vcf files together, allowing for same individual to appear more than once
+	    ../bcftools-1.6/bcftools merge --force-samples ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_a2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_b2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_c2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_d2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_e2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_f2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_g2.recode.vcf.gz ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}_h2.recode.vcf.gz > ./OUTPUT/merged_${names[ ${SGE_TASK_ID} ]}.vcf
+
+        ## Calculate tajD
+        ../vcftools/bin/vcftools --vcf ./OUTPUT/merged_${names[ ${SGE_TASK_ID} ]}.vcf \
+        --TajimaD 10000 \
+        --out ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}
+
+        ## Calculate average tajD across sites and write to file
+        sed -i '/nan$/d' ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}.Tajima.D
+        tail -n +2 ./OUTPUT/RAD1_A_Het06_${names[ ${SGE_TASK_ID} ]}.Tajima.D | awk '{ total += $4 } END { print total/NR }' > ${names[ ${SGE_TASK_ID} ]}_average_tajD
+        cat ${names[ ${SGE_TASK_ID} ]}_average_tajD >> ${names[ ${SGE_TASK_ID} ]}_tajD_n1000
+
+
+        i=$[$i+1]
+done
+
+rm ${names[ ${SGE_TASK_ID} ]}_average_tajD
+rm ${names[ ${SGE_TASK_ID} ]}.Tajima.D
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_a
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_b
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_c
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_d
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_e
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_f
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_g
+rm ${names[ ${SGE_TASK_ID} ]}_NEW_subset_h
+
+
