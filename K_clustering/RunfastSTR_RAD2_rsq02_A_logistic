@@ -1,0 +1,45 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m a
+#$ -r y
+#$ -q long
+#$ -pe smp 2
+#$ -N RunfastSTRUCTURE_RAD2_A_rsq02_Het06
+set path = ( $path /fastSTRUCTURE )
+
+module load bio/faststructure/1.0
+module load bio/python/2.7.11
+
+python structure.py -K 1 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 2 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 3 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 4 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 5 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 6 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 7 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 8 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 9 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 10 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 11 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 12 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 13 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 14 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 15 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 16 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 17 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 18 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 19 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 20 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 21 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 22 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 23 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 24 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 25 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 26 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 27 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 28 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 29 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+python structure.py -K 30 --format=bed --input=./RAD2_A_rsq0.2_Het06 --output=fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic --full --seed=100 --cv=10 --prior=logistic
+
+
+python chooseK.py --input=./fastSTRUCTURE_output/RAD2_A_rsq02_Het06_logistic

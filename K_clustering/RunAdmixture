@@ -1,0 +1,24 @@
+#!/bin/csh
+#$ -M sryan6@nd.edu
+#$ -m a
+#$ -r y
+#$ -q long
+#$ -pe smp 4
+#$ -N RunAdmixture_POP2
+set path = ( $path /afs/crc.nd.edu/user/s/sryan6/Prapae_shared/admixture_linux-1.3.0 )
+
+
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 1 -j3 | tee log1.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 2 -j3 | tee log2.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 3 -j3 | tee log3.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 4 -j3 | tee log4.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 5 -j3 | tee log5.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 6 -j3 | tee log6.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 7 -j3 | tee log7.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 8 -j3 | tee log8.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 9 -j3 | tee log9.out
+admixture --cv=10 ../Filtering_GATK/RAD2_A_rsq0.2_Het06_12_POP_7.ped 10 -j3 | tee log10.out
+
+## for loop not working for some reason (need to be in bash...)
+# for K in 1 2 3 4 5 6 7 8 9 10 11 POP1 13 14 15;  do admixture --cv=10 RAD2_A_rsq0.2_Het06_POP1.ped $K -j8 | tee log${K}.out; done
+
