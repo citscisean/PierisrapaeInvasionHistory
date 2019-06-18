@@ -1,0 +1,27 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m e
+#$ -r y
+#$ -q long
+#$ -pe smp 64
+#$ -N RunGenotypeGVCFs
+set path = ( $path /GenomeAnalysisTK-3.8-0-ge9d806836 )
+
+java -jar -Xmx500g GenomeAnalysisTK.jar \
+     -T GenotypeGVCFs \
+     -R ../Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa \
+     -V ./CombinedGVCFs/PierisProject_cohort_1.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_2.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_3.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_4.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_5.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_6.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_7.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_8.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_9.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_10.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_11.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_12.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_13.g.vcf \
+     -V ./CombinedGVCFs/PierisProject_cohort_14.g.vcf \
+     -o PierisProject_101217.vcf

@@ -1,5 +1,4 @@
-## Reads were "cleaned" using the script:
-qsub RunCleanReads
+## All jobs were submitted in unix environment
 
 ## Reads were mapped to the P. rapae genome while adding read groups using the script: (the script was submitted in sections as separate jobs to speed run times)
 qsub RunBWA_RG
@@ -26,8 +25,8 @@ qsub RunCombineGVCFs_batch14
 ## Genotypes were then called with script:
 qsub RunGenotypeGVCFs 
 
-## SNPs were filtered from the final vcf file using the script:
-qsub RunFilterSNPs
+
+
 
 
 

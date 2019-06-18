@@ -1,0 +1,63 @@
+#!/bin/csh
+#$ -M sryan6@nd.edu
+#$ -m e
+#$ -r y
+#$ -q long
+#$ -pe smp 16
+#$ -N RunCombineGVCFs_batch8
+set path = ( $path /afs/crc.nd.edu/group/hellmann/hlm_3/GenomeAnalysisTK-3.8-0-ge9d806836 )
+
+ java -jar -Xmx32g GenomeAnalysisTK.jar \
+   -T CombineGVCFs \
+   -R ../Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa \
+   --variant ./GVCFs/Pr_67_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_68_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_69_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_74_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_76_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_79_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_81_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_84_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_12_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_86_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_88_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_92_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_95_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_775_MiSeq_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_14_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_16_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_20_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_28_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_40_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_50_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_62_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1513_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_178_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_179_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_180_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1800_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1801_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1802_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1803_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1804_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1806_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_181_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1514_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1810_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1814_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_182_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_183_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1834_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1515_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1526_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1527_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1528_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_1529_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_176_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_177_merged_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_440_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_514_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_518_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_525_HiSeq1_rawLikelihoods.g.vcf.gz \
+   --variant ./GVCFs/Pr_531_HiSeq1_rawLikelihoods.g.vcf.gz \
+   -o PierisProject_cohort_8.g.vcf

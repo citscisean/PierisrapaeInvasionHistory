@@ -1,0 +1,52 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m e
+#$ -r y
+#$ -q long
+#$ -pe smp 24
+#$ -N RunHaplotypeCaller_WDL
+set path = ( $path /GenomeAnalysisTK-3.8-0-ge9d806836 )
+
+## Run HaplotypeCaller
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_1to25_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_26to50_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_51to75_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_76to100_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_101to125_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_126to150_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_151to175_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_176to200_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_201to225_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_226to250_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_251to262_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_263to275_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_276to300_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_251to275_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_301to325_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_326to350_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_351to375_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_351to355_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_356to360_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_361to365_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_366to370_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_371to375_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_376to400_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_401to425_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_426to450_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_426to437_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_438to450_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_451to475_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_476to500_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_476to487_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_488to500_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_501to525_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_526to550_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_551to575_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_576to600_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_601to625_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_626to650_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_626to637_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_638to650_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_651to675_inputs.json -o jointCallingGenotypes_options.json
+java -jar cromwell-29.jar run jointCallingGenotypes.wdl -i jointCallingGenotypes_676to700_inputs.json -o jointCallingGenotypes_options.json
+

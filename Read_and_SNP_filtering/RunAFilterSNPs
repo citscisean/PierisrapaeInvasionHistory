@@ -1,0 +1,778 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m abe
+#$ -r y
+#$ -q long
+#$ -pe smp 2
+#$ -N RunFilterSNPs
+set path = ( $path ./Prapae_RADseq_project )
+
+### SNP filtering for quality
+
+## Remove indels
+./vcftools/bin/vcftools --vcf ./GenomeAnalysisTK-3.8-0-ge9d806836/PierisProject_101217.vcf \
+--remove-indels \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_SNPs
+
+## Keep only biallelic sites
+./vcftools/bin/vcftools --vcf Filtering_GATK/PierisProject_101217_SNPs.recode.vcf \
+--min-alleles 2 \
+--max-alleles 2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs
+
+## Remove non Pieris rapae; save ./Filtering_GATK/PierisProject_101217_biSNPs.recode.vcf for later (see below)
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/PierisProject_101217_biSNPs.recode.vcf \
+--remove ./Filtering_GATK/NONPieris.ind \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae
+#
+# Bgzip and tabix vcf file before using GATK
+./htslib-1.6/bgzip ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae.recode.vcf
+./htslib-1.6/tabix ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae.recode.vcf.gz
+
+## Annotate vcf for "Hard Filtering"
+java -Xmx300G -jar ./GenomeAnalysisTK-3.8-0-ge9d806836/GenomeAnalysisTK.jar \
+-T VariantFiltration \
+-R ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa \
+-V ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae.recode.vcf.gz \
+--filterExpression "QD < 2.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" \
+--filterName "HardFilter" \
+-o ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hardfilters.recode.vcf
+
+## Apply hard filters
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hardfilters.recode.vcf.gz \
+--remove-filtered-all \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard.recode.vcf.gz
+
+## Remove sites with a GQ < 20
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard.recode.vcf.gz \
+--minGQ 20 \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20.vcf.gz
+
+## Remove sites with a minor allele frequnecy < 0.01
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20.vcf.gz \
+--maf 0.01 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01
+
+## Keep only SNPs with 1X coverage in 50% of individuals
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01.recode.vcf.gz \
+--minDP 1 \
+--max-missing 0.5 \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind.vcf.gz
+
+## Calculate site depth
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind.vcf.gz \
+--site-mean-depth \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind
+
+## Calcualte 95th percentile (use the cutoff value for the filter below)
+cat ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind.ldepth.mean | awk '{print $3 }' | tail -n +2 | sort -n | awk 'BEGIN{i=0} {s[i]=$1; i++;} END{print s[int(NR*0.95-0.5)]}' > 95prcnt_cutoff
+
+## Apply 95th percentile filter
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind.vcf.gz \
+--max-meanDP 112.857 \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.vcf.gz
+
+## Calculate missingness by individual
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.vcf.gz \
+--missing-indv \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth
+
+## Create list of individuals that have < 75% missing data across all sites (list of individuals to keep)
+awk '(NR>1) && ($5 < 0.75 ) ' ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.imiss | awk '{ print $1 }' > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.less75imiss.ind
+
+## Keep only those individuals with less than 75% missingness
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.vcf.gz \
+--keep ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth.less75imiss.ind \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss.vcf.gz
+
+## Keep only SNPs with 10X coverage in 75% of individuals
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss.vcf.gz \
+--minDP 10 \
+--max-missing 0.75 \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X75ind.vcf.gz
+
+## Calculate missingness by individual
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X75ind.vcf.gz \
+--missing-indv \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X75ind
+
+
+### FIND SEX LINKED LOCI 
+
+# Increase GQ filter to 50
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X75ind.vcf.gz \
+--remove-indv Pr_1159 \
+--minGQ 30 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind.recode.vcf \
+--het \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind
+
+## Bring this file into R along with putative chrom information from section below as input for FindingSexLinkedLoci.R
+
+## Determine putative chromosome asignemnets for each SNP using B. mori genome
+## Make dictionary file for protein database
+../BLASTplus/ncbi-blast-2.2.30+/bin/makeblastdb -in ../Genomes/B_mori/silkpep.fa -dbtype prot
+
+## Blast Pra to Bmori using all protein sequences of both (whole genome)
+../BLASTplus/ncbi-blast-2.2.30+/bin/blastp -db ../Genomes/B_mori/silkpep.fa -out All_Bmori_prot_to_All_Pra_prot -query ../Genomes/Pieris_rapae_assembly_v2/Pieris_rapae_prot.fa -evalue 1e-10 -outfmt 6
+
+## Select just the first hit (most sig.) and print it (MUST BE IN BASH TO DO THIS)
+awk '!a[$1]++' All_Bmori_prot_to_All_Pra_prot > All_Bmori_prot_to_All_Pra_prot_1stHitOnly
+
+## Print just first and second column (prot of Prapae with scaffold hit of Bmor
+awk '{print $2" "$1}' All_Bmori_prot_to_All_Pra_prot_1stHitOnly > All_Bmori_prot_to_All_Pra_prot_1stHitOnly.txt
+
+## Add header
+echo "Scaff\tProt" | cat - All_Bmori_prot_to_All_Pra_prot_1stHitOnly.txt > /tmp/out && mv /tmp/out All_Bmori_prot_to_All_Pra_prot_1stHitOnly2.txt
+
+## Sort, ignoring header
+(head -n 1 All_Bmori_prot_to_All_Pra_prot_1stHitOnly2.txt && tail -n +2 All_Bmori_prot_to_All_Pra_prot_1stHitOnly2.txt | sort) > All_Bmori_prot_to_All_Pra_prot_1stHitOnly_sorted.txt
+
+## Use the protein fasta of Bmori to create a lookup table to determine nscaf for best mapped protein seqs
+grep '>' ../Genomes/B_mori/silkpep.fa > silkpep_used_for_nscaf_info.txt
+
+## Remove >
+sed -i 's/>//' silkpep_used_for_nscaf_info.txt
+
+## Print columns 1 and 3
+awk '{print $1, $3}' silkpep_used_for_nscaf_info.txt > silkpep_used_for_nscaf_info2.txt
+
+## Split column 3 by :
+sed -i 's/\:/ /g' silkpep_used_for_nscaf_info2.txt
+
+## Now keep just column 1,3,4,5
+awk '{print $1, $3, $4, $5}' silkpep_used_for_nscaf_info2.txt > silkpep_used_for_nscaf_info3.txt
+
+## Add header
+echo "Scaff\tNscaff\tStart\tEnd" | cat - silkpep_used_for_nscaf_info3.txt > /tmp/out && mv /tmp/out silkpep_used_for_nscaf_info4.txt
+
+## Sort, ignoring header
+(head -n 1 silkpep_used_for_nscaf_info4.txt && tail -n +2 silkpep_used_for_nscaf_info4.txt | sort) > silkpep_used_for_nscaf_info5.txt
+
+## Join the two files together using the column "Scaff" (default for join is the first column)
+join All_Bmori_prot_to_All_Pra_prot_1stHitOnly_sorted.txt silkpep_used_for_nscaf_info5.txt > Hits_Nscaff.txt
+
+## Sort, ignoring header
+(head -n 1 Hits_Nscaff.txt && tail -n +2 Hits_Nscaff.txt | sort) > Hits_Nscaff_sorted.txt
+
+## Create a table of Scaff and Chrom (this was done in excel using this info from SilkDB)
+Bmor_Chrom_by_Scaff
+
+## Sort, ignoring header
+(head -n 1 Bmor_Chrom_by_Scaff && tail -n +2 Bmor_Chrom_by_Scaff | sort) > Bmor_Chrom_by_Scaff_sorted
+
+## Join the Chrom info table to the above table
+join Hits_Nscaff_sorted.txt Bmor_Chrom_by_Scaff_sorted > Hits_Nscaff_Chrom.txt
+
+
+## Create list of CHROM POS (of sex linked loci) to filter for 
+
+## Create list of CHROM and POS 
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind.recode.vcf \
+--site-pi \
+--out ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind
+
+## Remove the header and keep just the first two positions
+tail -n +2 ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind.sites.pi | awk '{print $1, $2}' > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind_CHROM_POS
+
+## Bring in list of loci from R
+grep -Ff ./Filtering_GATK/PutativeZlinked_prcnt60.txt ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ30_maf01_1X50ind_95depth_75imiss_10X75ind_CHROM_POS > ./Filtering_GATK/Zlinked.loci
+
+
+## Keep Autosomal markers
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss.vcf.gz \
+--exclude-positions ./Filtering_GATK/Zlinked.loci \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss_A.vcf.gz
+
+# Bring files into R and use ValidateSex.R 
+
+## Remove Carolina Biological and potentially contaminated females (het calls on putative Z-linked loci > 1%)
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss_A.vcf.gz \
+--remove ./Filtering_GATK/CarolinaBiological.ind \
+--recode \
+--recode-INFO-all \
+--stdout | gzip -c > ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss_A_noCB.vcf.gz
+
+
+## Filtering used for calculations of observed heterozygosity, Fst
+cp ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss_A_noCB.vcf.gz ./Filtering_GATK/RAD1_A.vcf.gz
+
+## Remove loci with het > 0.6 in males OR females (determined in R with FindSexLinkedLoci dataset)
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/RAD1_A.vcf.gz \
+--exclude-positions ./Filtering_GATK/Het06.loci \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06
+
+## Calculate missingness by individual
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--missing-indv \
+--out ./Filtering_GATK/RAD1_A_Het06
+
+## Calculate average depth by individual
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--depth \
+--out ./Filtering_GATK/RAD1_A_Het06
+
+## Create vcf files subsetted by population
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_1.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/Filtering_GATK/RAD1_A_Het06_POP_1.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_1.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_1.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_1.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_1.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.4
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.5 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.5
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.6 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.6
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.7 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.7
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.8 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.8
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_2.9 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_2.9
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_3.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_3.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_3.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_3.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_3.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_3.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.4
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.5 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.5
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.6 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.6
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.7 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.7
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.8 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.8
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.9 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.9
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_4.x \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_4.x
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_5.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_5.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_5.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_5.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_5.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_5.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_6.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_6.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_7.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_7.1
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_7.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_7.2
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_7.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_7.3
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_7.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_7.4
+
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--keep ./popfilters/POP_8.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_POP_8.1
+
+
+## Filtering used for calculations of observed pi and Tajima's D (includes invariant sites)
+
+## Need to concatenate all sites together and  remove gaps between sites 
+
+## Print just the sites
+zcat ./GenomeAnalysisTK-3.8-0-ge9d806836/PierisProject_101217_invariants_ALL_RAD1_SNPs.vcf.gz | grep -v # > PierisProject_101217_invariants_ALL_RAD1_SNPs.sites
+
+## Remove 1st two rows 
+cut -f 3- PierisProject_101217_invariants_ALL_RAD1_SNPs.sites > PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.c
+
+## Create a file with sequence on numbers matching number or rows in PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.c
+seq 1 169128 > PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.b
+
+## Create a file with just one chromosome 
+awk 'BEGIN{for(c=0;c<169128;c++) print "1"}' > PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.a
+
+## Combine a, b, and c
+paste -d"\t" PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.a PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.b PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.c > PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.abc
+
+## Print just the header 
+zcat ./GenomeAnalysisTK-3.8-0-ge9d806836/PierisProject_101217_invariants_ALL_RAD1_SNPs.vcf.gz | grep # > PierisProject_101217_invariants_ALL_RAD1_SNPs.header
+
+## Combine everything
+cat PierisProject_101217_invariants_ALL_RAD1_SNPs.header PierisProject_101217_invariants_ALL_RAD1_SNPs.sites.abc > PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf
+
+## Create vcf files for each subpopulation
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_1.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_POP_1.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_1.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_1.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_1.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_1.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.4
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.5 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.5
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.6 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.6
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.7 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.7
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.8 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.8
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_2.9 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_2.9
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_3.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_3.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_3.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_3.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_3.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_3.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.4
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.5 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.5
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.6 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.6
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.7 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.7
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.8 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.8
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.9 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.9
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_4.x \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_4.x
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_5.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_5.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_5.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_5.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_5.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_5.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_6.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_6.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_7.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_7.1
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_7.2 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_7.2
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_7.3 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_7.3
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_7.4 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_7.4
+
+./vcftools/bin/vcftools --vcf PierisProject_101217_invariants_ALL_RAD1_SNPs2.vcf \
+--keep ./popfilters/POP_8.1 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/PierisProject_101217_invariants_ALL_RAD1_SNPs2_8.1
+
+
+## Determine length of LD blocks
+
+## Use a thinned vcf file (so that not biased by RADseq data)
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--thin 200 \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_thinned
+
+## Find scaffolds smaller than 100 kb 
+
+## Output length of each scaffold 
+cat ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2_scaffold_size.txt
+
+## Print list of scaffolds longer than 100 kb
+cat ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2_scaffold_size.txt | awk '$2 > 100000  {print $1}' > ./Filtering_GATK/Prapae_scaffolds_greater_100kb
+
+## Create list of CHROM and POS for current vcf file
+grep -v ^# ./Filtering_GATK/RAD1_A_Het06_thinned.recode.vcf | awk '{print $1, $2}' > ./Filtering_GATK/RAD1_A_Het06_thinned.loci
+
+## Filter list of loci to those with scaffolds greater than 100 kb
+grep -wFf ./Filtering_GATK/Prapae_scaffolds_greater_100kb ./Filtering_GATK/RAD1_A_Het06_thinned.loci > ./Filtering_GATK/RAD1_A_Het06_thinned_scaffs100kb.loci
+
+## Subset to list of loci
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06_thinned.recode.vcf \
+--positions ./Filtering_GATK/RAD1_A_Het06_thinned_scaffs100kb.loci \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_thinned_scaffs100kb
+
+
+## Create file to be used to count number of "RADtags", only using scaffolds greater than 100kb
+
+## Find scaffolds smaller than 100 kb
+
+## First output length of each scaffold
+cat ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2_scaffold_size.txt
+
+## Print list of scaffolds longer than 100 kb
+cat ./Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2_scaffold_size.txt | awk '$2 > 100000  {print $1}' > ./Filtering_GATK/Prapae_scaffolds_greater_100kb
+
+## Create list of CHROM and POS for current vcf file
+grep -v ^# ./Filtering_GATK/RAD1_A_Het06.recode.vcf | awk '{print $1, $2}' > ./Filtering_GATK/RAD1_A_Het06.loci
+
+## Filter list of loci to those with scaffolds greater than 100 kb
+grep -wFf ./Filtering_GATK/Prapae_scaffolds_greater_100kb ./Filtering_GATK/RAD1_A_Het06.loci > ./Filtering_GATK/RAD1_A_Het06_scaffs100kb.loci
+
+## Subset to list of loci
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD1_A_Het06.recode.vcf \
+--positions ./Filtering_GATK/RAD1_A_Het06_scaffs100kb.loci \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD1_A_Het06_scaffs100kb
+
+
+## Filtering used for cluster assignments (removing linked sites)
+cp ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X90ind_25imiss_A_noCB.vcf.gz ./Filtering_GATK/RAD2_A.vcf.gz
+
+## Calculate r2 by site (LD filter)
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/RAD2_A.vcf.gz \
+--geno-r2 \
+--out ./Filtering_GATK/RAD2_A
+
+## Print list of loci with r2 > 0.20
+awk '$5 > 0.2 {print ;}' ./Filtering_GATK/RAD2_A.geno.ld | awk '{print $1, $2}' | tail -n +2 > ./Filtering_GATK/RAD2_A.r2_02.loci
+
+## Filter out sites on r2 list (above)
+./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/RAD2_A.vcf.gz \
+--exclude-positions ./Filtering_GATK/RAD2_A.r2_02.loci \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD2_A_rsq0.2
+
+## Remove loci with het > 0.6 in males OR females (done in R with FindSexLinkedLoci dataset)
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD2_A_rsq0.2.recode.vcf \
+--exclude-positions ./Filtering_GATK/Het06.loci \
+--recode \
+--recode-INFO-all \
+--out ./Filtering_GATK/RAD2_A_rsq0.2_Het06
+
+## Create fastSTRUCTURE input file
+## First make a plink file
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD2_A_rsq0.2_Het06.recode.vcf \
+--plink \
+--out ./Filtering_GATK/RAD2_A_rsq0.2_Het06
+
+## Then convert plink .ped file to .bed file
+./pb-plink-src/plink --file ./Filtering_GATK/RAD2_A_rsq0.2_Het06 --make-bed --out ./Filtering_GATK/RAD2_A_rsq0.2_Het06
+
+## Calculate average depth per ind
+./vcftools/bin/vcftools --vcf ./Filtering_GATK/RAD2_A_rsq0.2_Het06.recode.vcf \
+--depth \
+--out ./Filtering_GATK/RAD2_A_rsq0.2_Het06
+
+## Create Admixture file
+./pb-plink-src/plink --file ./Filtering_GATK/RAD2_A_rsq0.2_Het06 --recode12 --out ./Filtering_GATK/RAD2_A_rsq0.2_Het06_12
+
+
+

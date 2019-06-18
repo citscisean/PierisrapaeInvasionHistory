@@ -1,0 +1,112 @@
+#!/bin/csh
+#$ -M <email>
+#$ -m abe
+#$ -r y
+#$ -q long
+#$ -pe smp 2
+#$ -N RunCleanReads
+set path = ( $path ./Prapae_RADseq_project )
+
+## Basic demultiplexing and trimming of barcodes and cutsite
+module load python/2.7.3
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate1.barcodes ./SR_072716_Plate01_NoIndex_L006_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate2.barcodes ./SR_072716_Plate02_NoIndex_L007_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate3.barcodes ./SR_072716_Plate03_NoIndex_L008_R1_001.fastq
+./Trimmer/radtag0_trimmer.py -e 0 -p ./Pieris-RADSeq_S1_L001_R2_001.fastq ./Barcodes/MiSeq_5_15_15.barcodes ./Pieris-RADSeq_S1_L001_R1_001.fastq
+./Trimmer/radtag0_trimmer.py -e 0 -p ./151214_I114_FCH52T5BBXX_L1_CHKPE85215100035_2.fq ./Barcodes/HiSeq2_10_5_15_FIXED.barcodes ./151214_I114_FCH52T5BBXX_L1_CHKPE85215100035_1.fq
+./Trimmer/radtag0_trimmer.py -e 0 -p ./151209_I114_FCH3WTYBBXX_L3_CHKPE85215100034_2.fq ./Barcodes/HiSeq1_10_5_15.barcodes ./151209_I114_FCH3WTYBBXX_L3_CHKPE85215100034_1.fq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate4.barcodes ./Shoemaker_SR_Plate04_NoIndex_L005_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate5.barcodes ./Shoemaker_SR_Plate05_NoIndex_L006_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate6.barcodes ./Shoemaker_SR_Plate06_NoIndex_L007_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate1.barcodes ./plate_1_NoIndex_L004_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate2.barcodes ./plate_2_NoIndex_L005_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate3.barcodes ./plate3_NoIndex_L001_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate4.barcodes ./plate4_NoIndex_L002_R1_001.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate5.barcodes ./plate5_NoIndex_L001_R1_003.fastq
+./Trimmer/radtag0_trimmer.py ./Barcodes/HiSeq_plate6.barcodes ./plate6_NoIndex_L001_R1_004.fastq
+
+## Further trim reads, remove adapter content and look for read-through
+module load java/1.8
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/SR_072716_Plate01_NoIndex_L006_R1_001.trimmed.fq.gz Plate01_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/SR_072716_Plate02_NoIndex_L007_R1_001.trimmed.fq.gz Plate02_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/SR_072716_Plate03_NoIndex_L008_R1_001.trimmed.fq.gz Plate03_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/Shoemaker_SR_Plate04_NoIndex_L005_R1_001.trimmed.fq.gz Plate04_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/Shoemaker_SR_Plate05_NoIndex_L006_R1_001.trimmed.fq.gz Plate05_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 ./Trimmer/Shoemaker_SR_Plate06_NoIndex_L007_R1_001.trimmed.fq.gz Plate06_R1_trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate_1_NoIndex_L004_R1_001.trimmed.fq.gz plate_1_NoIndex_L004_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate_2_NoIndex_L005_R1_001.trimmed.fq.gz plate_2_NoIndex_L005_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate3_NoIndex_L001_R1_001.trimmed.fq.gz plate_3_NoIndex_L001_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate4_NoIndex_L002_R1_001.trimmed.fq.gz plate_4_NoIndex_L002_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate5_NoIndex_L003_R1_001.trimmed.fq.gz plate_5_NoIndex_L003_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -phred33 plate6_NoIndex_L004_R1_001.trimmed.fq.gz plate_6_NoIndex_L004_R1_001.trimd_Trimmo.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-SE-2.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar PE -phred33 ./Trimmer/Pieris-RADSeq_S1_L001_R1_001.trimmed.fq.gz ./Trimmer/Pieris-RADSeq_S1_L001_R2_001.trimmed.fq.gz -baseout MiSeq_5_15_15.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-PE-2.fa:2:30:10:1 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar PE -phred33 ./Trimmer/151214_I114_FCH52T5BBXX_L1_CHKPE85215100035_1.trimmed.fq.gz ./Trimmer/151214_I114_FCH52T5BBXX_L1_CHKPE85215100035_2.trimmed.fq.gz -baseout HiSeq2.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-PE-2.fa:2:30:10:1 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar PE -phred33 ./Trimmer/151209_I114_FCH3WTYBBXX_L3_CHKPE85215100034_1.trimmed.fq.gz ./Trimmer/151209_I114_FCH3WTYBBXX_L3_CHKPE85215100034_2.trimmed.fq.gz -baseout HiSeq1.fq.gz ILLUMINACLIP:./Trimmomatic-0.35/adapters/TruSeq3-PE-2.fa:2:30:10:1 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:30
+
+## Check read quality
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate01_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate02_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate03_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/MiSeq_5_15_15_1U_P.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/HiSeq2_1U_P.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/HiSeq1_1U_P.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate04_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate05_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i ./Trimmomatic-0.35/Plate06_R1_trimd_Trimmo.fq.gz -o ./FastQC/Results
+
+## Remove poor quality bases (including first 15bp of reverse reads; applies to MiSeq reads only)
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate01_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate01_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate02_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate02_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate03_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate03_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/MiSeq_5_15_15_1U_P.fq -o ./fastx-0.0.13/MiSeq_5_15_15_1U_P_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/HiSeq2_1U_P.fq -o ./fastx-0.0.13/HiSeq2_1U_P_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/HiSeq1_1U_P.fq -o ./fastx-0.0.13/HiSeq1_1U_P_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate04_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate04_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate05_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate05_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i ./Trimmomatic-0.35/Plate06_R1_trimd_Trimmo.fq -o ./fastx-0.0.13/Plate06_R1_trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate_1_NoIndex_L004_R1_001.trimd_Trimmo.fq -o plate_1_NoIndex_L004_R1_001.trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate_2_NoIndex_L005_R1_001.trimd_Trimmo.fq -o plate_2_NoIndex_L005_R1_001.trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate3_NoIndex_L001_R1_001.trimd_Trimmo.fq -o plate3_NoIndex_L001_R1_001.trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate4_NoIndex_L002_R1_001.trimd_Trimmo.fq -o plate4_NoIndex_L002_R1_001.trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate5_NoIndex_L003_R1_001.trimd_Trimmo.fq -o plate5_NoIndex_L003_R1_001.trimd_Trimmo_fastX75.fq.gz
+./fastx-0.0.13/fastx_trimmer -Q33 -z -f 5 -l 80 -i plate6_NoIndex_L004_R1_001.trimd_Trimmo.fq -o plate6_NoIndex_L004_R1_001.trimd_Trimmo_fastX75.fq.gz
+
+## Remove reads less than 75bp in length
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/MiSeq_5_15_15_1U_P_fastX75.fq.gz MiSeq_5_15_15_1U_P_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate01_R1_trimd_Trimmo_fastX75.fq.gz Plate01_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate02_R1_trimd_Trimmo_fastX75.fq.gz Plate02_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate03_R1_trimd_Trimmo_fastX75.fq.gz Plate03_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/HiSeq1_1U_P_fastX75.fq.gz HiSeq1_1U_P_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/HiSeq2_1U_P_fastX75.fq.gz HiSeq2_1U_P_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate04_R1_trimd_Trimmo_fastX75.fq.gz Plate04_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate05_R1_trimd_Trimmo_fastX75.fq.gz Plate05_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./fastx-0.0.13/Plate06_R1_trimd_Trimmo_fastX75.fq.gz Plate06_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate_1_NoIndex_L004_R1_001.trimd_Trimmo_fastX75.fq.gz  plate_1_NoIndex_L004_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate_2_NoIndex_L005_R1_001.trimd_Trimmo_fastX75.fq.gz  plate_2_NoIndex_L005_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate3_NoIndex_L001_R1_001.trimd_Trimmo_fastX75.fq.gz  plate3_NoIndex_L001_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate4_NoIndex_L002_R1_001.trimd_Trimmo_fastX75.fq.gz  plate4_NoIndex_L002_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate5_NoIndex_L003_R1_003.trimd_Trimmo_fastX75.fq.gz  plate5_NoIndex_L003_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./plate6_NoIndex_L004_R1_001.trimd_Trimmo_fastX75.fq.gz  plate5_NoIndex_L004_R1_001_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./Plate04_R1_trimd_Trimmo_fastX75.fq.gz ./Plate04_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./Plate01_R1_trimd_Trimmo_fastX75.fq.gz ./Plate01_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./Plate02_R1_trimd_Trimmo_fastX75.fq.gz ./Plate02_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+java -jar ./Trimmomatic-0.35/trimmomatic-0.35.jar SE -threads 4 -phred33 ./Plate03_R1_trimd_Trimmo_fastX75.fq.gz ./Plate03_R1_trimd_Trimmo_fastXmin76.fq.gz MINLEN:76
+
+## Check quality of cleaned reads
+./FastQC/fastqc -i Plate01_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i Plate02_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i Plate03_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i MiSeq_5_15_15_1U_P_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i HiSeq1_1U_P_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i HiSeq2_1U_P_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i Plate04_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i Plate05_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i Plate06_R1_trimd_Trimmo_fastXmin76.fq.gz -o ./FastQC/Results
+./FastQC/fastqc -i plate_1_NoIndex_L004_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+./FastQC/fastqc -i plate_2_NoIndex_L005_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+./FastQC/fastqc -i plate_3_NoIndex_L001_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+./FastQC/fastqc -i plate_4_NoIndex_L002_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+./FastQC/fastqc -i plate_5_NoIndex_L003_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+./FastQC/fastqc -i plate_6_NoIndex_L004_R1_001_trimd_Trimmo_fastXmin76.fq.gz
+
+

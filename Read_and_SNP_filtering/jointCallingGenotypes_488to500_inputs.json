@@ -1,0 +1,7 @@
+{
+  "jointCallingGenotypes.inputSamplesFile": "samplebamindex_488to500.files",
+  "jointCallingGenotypes.refFasta": "../Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa",
+  "jointCallingGenotypes.gatk": "GenomeAnalysisTK.jar",
+  "jointCallingGenotypes.refDict": "../Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.dict",
+  "jointCallingGenotypes.refIndex": "../Genomes/Pieris_rapae_assembly_v2/Pieris_assembly_v2.fa.fai"
+}
