@@ -1,6 +1,6 @@
 # PierisrapaeInvasionHistory
 
-This repository contains all scripts that were used to explore global patterns on genetic diversity/structure and the reconstruction of historical invasion routes for the invasive agricultural pest Pieris rapae. 
+This repository contains all scripts that were used to explore global patterns of genetic diversity/structure and the reconstruction of historical invasion routes for the invasive agricultural pest Pieris rapae. 
 
 The Datafiles directory contains larger files that were used for analyses and can be found in directories named based on the analysis they are associated with. 
 
