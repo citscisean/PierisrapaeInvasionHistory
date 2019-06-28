@@ -1,560 +1,560 @@
-Pr_ID	Country_Num
-Pr_1	1
-Pr_10	1
-Pr_1010	10
-Pr_1022	1
-Pr_1023	1
-Pr_1024	1
-Pr_1026	1
-Pr_1030	1
-Pr_1032	1
-Pr_1033	1
-Pr_1046	1
-Pr_1048	1
-Pr_1049	1
-Pr_1050	1
-Pr_1078	6
-Pr_1086	6
-Pr_1093	6
-Pr_1109	6
-Pr_1120	6
-Pr_1121	6
-Pr_1125	1
-Pr_1134	1
-Pr_1142	1
-Pr_1143	1
-Pr_1149	1
-Pr_115	1
-Pr_1150	1
-Pr_1155	27
-Pr_1156	6
-Pr_1159	6
-Pr_116	1
-Pr_1160	6
-Pr_1163	14
-Pr_1164	14
-Pr_1166	14
-Pr_1171	14
-Pr_1173	14
-Pr_1175	14
-Pr_1176	14
-Pr_1179	14
-Pr_1180	14
-Pr_1181	14
-Pr_1184	14
-Pr_1206	1
-Pr_1207	1
-Pr_1209	1
-Pr_1211	6
-Pr_1213	6
-Pr_1215	6
-Pr_1216	6
-Pr_1217	6
-Pr_1230	1
-Pr_1231	1
-Pr_1232	10
-Pr_1238	10
-Pr_1245	10
-Pr_125	1
-Pr_1251	10
-Pr_1252	10
-Pr_1259	10
-Pr_1260	10
-Pr_1261	10
-Pr_1262	10
-Pr_1269	7
-Pr_1270	7
-Pr_1272	7
-Pr_1275	7
-Pr_1276	7
-Pr_1278	7
-Pr_1279	7
-Pr_1282	6
-Pr_1308	6
-Pr_131	1
-Pr_1326	6
-Pr_1327	6
-Pr_1333	6
-Pr_1347	1
-Pr_1348	1
-Pr_1349	1
-Pr_1352	1
-Pr_1354	1
-Pr_1355	1
-Pr_1356	1
-Pr_1358	9
-Pr_1360	9
-Pr_1361	9
-Pr_1363	9
-Pr_1364	9
-Pr_1365	9
-Pr_1366	9
-Pr_1367	9
-Pr_1376	8
-Pr_1381	16
-Pr_1382	16
-Pr_1383	16
-Pr_1384	16
-Pr_1385	16
-Pr_1386	16
-Pr_1394	1
-Pr_1403	1
-Pr_1432	1
-Pr_1434	1
-Pr_1435	1
-Pr_1436	1
-Pr_1437	1
-Pr_1438	1
-Pr_1439	1
-Pr_1440	1
-Pr_1459	1
-Pr_1460	1
-Pr_1461	1
-Pr_1466	1
-Pr_1468	1
-Pr_1472	1
-Pr_1478	1
-Pr_1488	1
-Pr_1491	1
-Pr_1496	1
-Pr_1497	1
-Pr_1498	6
-Pr_1499	6
-Pr_1502	6
-Pr_1503	6
-Pr_1504	6
-Pr_1507	6
-Pr_1509	6
-Pr_151	1
-Pr_1513	6
-Pr_1514	6
-Pr_1515	10
-Pr_152	1
-Pr_1526	6
-Pr_1527	6
-Pr_1528	6
-Pr_1529	6
-Pr_154	1
-Pr_168	1
-Pr_169	1
-Pr_170	1
-Pr_171	1
-Pr_176	1
-Pr_177	1
-Pr_178	1
-Pr_179	1
-Pr_180	1
-Pr_1800	1
-Pr_1801	1
-Pr_1802	1
-Pr_1803	1
-Pr_1804	1
-Pr_1806	1
-Pr_181	1
-Pr_1810	6
-Pr_1814	6
-Pr_182	1
-Pr_183	1
-Pr_1834	1
-Pr_1835	1
-Pr_1836	1
-Pr_1837	1
-Pr_1838	1
-Pr_1839	1
-Pr_1840	1
-Pr_1841	1
-Pr_1842	1
-Pr_1843	1
-Pr_1844	1
-Pr_1845	6
-Pr_1848	6
-Pr_1849	6
-Pr_1850	6
-Pr_1851	6
-Pr_1852	6
-Pr_1856	1
-Pr_1865	1
-Pr_1868	1
-Pr_1876	1
-Pr_1877	1
-Pr_1878	2
-Pr_1879	2
-Pr_1880	2
-Pr_1881	2
-Pr_1882	2
-Pr_1883	2
-Pr_1884	2
-Pr_1885	2
-Pr_1886	2
-Pr_1887	2
-Pr_1888	2
-Pr_1889	2
-Pr_1890	2
-Pr_1891	2
-Pr_1892	2
-Pr_1895	1
-Pr_1896	1
-Pr_1899	1
-Pr_1901	1
-Pr_1915	19
-Pr_1916	19
-Pr_1917	16
-Pr_1918	25
-Pr_1919	25
-Pr_1920	25
-Pr_1921	17
-Pr_1922	17
-Pr_1923	17
-Pr_1924	16
-Pr_1925	19
-Pr_1926	23
-Pr_1927	23
-Pr_1928	18
-Pr_1929	12
-Pr_1930	12
-Pr_1931	12
-Pr_1932	12
-Pr_1933	12
-Pr_1934	12
-Pr_1935	12
-Pr_1936	18
-Pr_1937	18
-Pr_1938	18
-Pr_1939	18
-Pr_1940	18
-Pr_1941	20
-Pr_1942	18
-Pr_1943	18
-Pr_1944	18
-Pr_1945	18
-Pr_1946	19
-Pr_1947	19
-Pr_1948	19
-Pr_1949	3
-Pr_195	1
-Pr_1950	3
-Pr_1951	3
-Pr_1952	3
-Pr_1953	3
-Pr_1954	3
-Pr_1955	3
-Pr_1956	3
-Pr_1957	3
-Pr_1958	3
-Pr_1959	3
-Pr_196	1
-Pr_1960	3
-Pr_1961	3
-Pr_1963	3
-Pr_1964	3
-Pr_1965	3
-Pr_1966	3
-Pr_1967	3
-Pr_1968	20
-Pr_1969	20
-Pr_1970	2
-Pr_1971	2
-Pr_1972	2
-Pr_1973	16
-Pr_1974	5
-Pr_1975	5
-Pr_1976	25
-Pr_1977	25
-Pr_1978	25
-Pr_1979	25
-Pr_1980	25
-Pr_1981	16
-Pr_1982	5
-Pr_1983	16
-Pr_1984	5
-Pr_1985	5
-Pr_1986	5
-Pr_1987	5
-Pr_1988	5
-Pr_1989	16
-Pr_199	1
-Pr_1990	22
-Pr_1991	22
-Pr_1992	22
-Pr_1993	22
-Pr_1994	24
-Pr_1995	24
-Pr_1996	24
-Pr_1997	24
-Pr_1998	24
-Pr_1999	24
-Pr_2	1
-Pr_200	1
-Pr_2000	24
-Pr_2001	24
-Pr_2002	24
-Pr_2003	24
-Pr_2004	24
-Pr_2005	24
-Pr_2006	19
-Pr_2007	3
-Pr_2008	3
-Pr_2010	15
-Pr_2011	15
-Pr_2012	15
-Pr_2013	17
-Pr_2014	26
-Pr_2015	19
-Pr_2016	19
-Pr_2017	19
-Pr_2018	19
-Pr_2019	17
-Pr_202	1
-Pr_2020	17
-Pr_2021	17
-Pr_2022	17
-Pr_2023	17
-Pr_2024	17
-Pr_2025	17
-Pr_2026	18
-Pr_2027	18
-Pr_2028	26
-Pr_2029	26
-Pr_2030	19
-Pr_2031	16
-Pr_2032	26
-Pr_2033	26
-Pr_2034	26
-Pr_2035	26
-Pr_2036	26
-Pr_2037	26
-Pr_2038	26
-Pr_2039	26
-Pr_204	1
-Pr_2040	25
-Pr_2041	16
-Pr_2042	21
-Pr_2043	21
-Pr_2044	21
-Pr_2045	21
-Pr_2046	21
-Pr_2047	21
-Pr_2048	21
-Pr_2049	5
-Pr_2050	26
-Pr_2051	21
-Pr_2052	21
-Pr_2053	21
-Pr_2054	20
-Pr_2055	25
-Pr_2056	23
-Pr_2057	23
-Pr_2058	23
-Pr_2059	23
-Pr_2060	25
-Pr_2061	5
-Pr_2062	20
-Pr_2063	20
-Pr_2064	17
-Pr_2065	5
-Pr_2066	5
-Pr_2067	20
-Pr_2068	20
-Pr_2069	20
-Pr_2070	20
-Pr_2071	20
-Pr_2072	20
-Pr_2073	20
-Pr_2074	20
-Pr_2075	25
-Pr_2076	1
-Pr_2077	22
-Pr_2078	1
-Pr_2079	22
-Pr_208	1
-Pr_2080	1
-Pr_2081	1
-Pr_2082	1
-Pr_2083	1
-Pr_2084	1
-Pr_2087	1
-Pr_2089	13
-Pr_209	1
-Pr_2090	13
-Pr_2096	13
-Pr_2099	13
-Pr_2100	13
-Pr_2101	13
-Pr_2102	13
-Pr_2103	13
-Pr_2104	13
-Pr_2105	13
-Pr_2106	13
-Pr_2107	13
-Pr_2108	13
-Pr_2109	13
-Pr_2110	13
-Pr_2111	4
-Pr_2112	4
-Pr_2117	4
-Pr_2123	4
-Pr_221	1
-Pr_231	1
-Pr_249	1
-Pr_250	1
-Pr_254	1
-Pr_256	1
-Pr_257	1
-Pr_261	1
-Pr_293	9
-Pr_3	1
-Pr_301	9
-Pr_312	9
-Pr_347	1
-Pr_357	1
-Pr_358	1
-Pr_359	1
-Pr_363	1
-Pr_369	1
-Pr_370	1
-Pr_371	1
-Pr_372	1
-Pr_373	1
-Pr_374	1
-Pr_375	1
-Pr_377	1
-Pr_383	1
-Pr_384	1
-Pr_386	1
-Pr_391	1
-Pr_392	1
-Pr_4	1
-Pr_40	1
-Pr_41	1
-Pr_43	1
-Pr_441	1
-Pr_442	1
-Pr_473	1
-Pr_474	1
-Pr_475	1
-Pr_487	1
-Pr_496	1
-Pr_5	1
-Pr_51	1
-Pr_514	1
-Pr_531	1
-Pr_538	1
-Pr_540	1
-Pr_57	1
-Pr_570	1
-Pr_589	1
-Pr_59	1
-Pr_590	1
-Pr_597	9
-Pr_6	1
-Pr_606	9
-Pr_614	1
-Pr_63	1
-Pr_65	1
-Pr_67	1
-Pr_68	1
-Pr_69	1
-Pr_7	1
-Pr_700	1
-Pr_701	1
-Pr_702	1
-Pr_703	1
-Pr_704	1
-Pr_706	1
-Pr_707	1
-Pr_708	1
-Pr_709	1
-Pr_710	1
-Pr_713	1
-Pr_718	1
-Pr_720	1
-Pr_722	1
-Pr_738	1
-Pr_739	1
-Pr_744	1
-Pr_747	1
-Pr_748	1
-Pr_75	1
-Pr_750	1
-Pr_751	1
-Pr_76	1
-Pr_761	1
-Pr_763	1
-Pr_764	1
-Pr_765	1
-Pr_766	1
-Pr_768	1
-Pr_769	1
-Pr_771	1
-Pr_772	1
-Pr_775	5
-Pr_779	2
-Pr_784	2
-Pr_793	23
-Pr_8	1
-Pr_84	1
-Pr_842	5
-Pr_867	5
-Pr_869	5
-Pr_876	5
-Pr_877	5
-Pr_879	5
-Pr_88	1
-Pr_880	5
-Pr_882	5
-Pr_887	15
-Pr_888	15
-Pr_891	15
-Pr_893	15
-Pr_894	15
-Pr_896	1
-Pr_898	1
-Pr_899	1
-Pr_9	1
-Pr_902	1
-Pr_909	1
-Pr_911	6
-Pr_913	6
-Pr_914	6
-Pr_915	6
-Pr_916	6
-Pr_919	11
-Pr_92	1
-Pr_922	11
-Pr_923	11
-Pr_926	11
-Pr_927	11
-Pr_928	11
-Pr_929	11
-Pr_930	11
-Pr_931	11
-Pr_936	11
-Pr_938	11
-Pr_939	11
-Pr_940	11
-Pr_941	11
-Pr_942	11
-Pr_944	8
-Pr_946	8
-Pr_948	8
-Pr_95	1
-Pr_950	8
-Pr_951	8
-Pr_954	8
-Pr_955	8
-Pr_957	8
-Pr_959	8
-Pr_960	8
-Pr_961	8
-Pr_965	8
-Pr_970	8
-Pr_975	8
-Pr_976	8
-Pr_977	8
-Pr_982	8
-Pr_983	8
-Pr_985	8
-Pr_988	8
-Pr_991	9
-Pr_992	13
-Pr_993	13
+Original_faststructure_order	ID	New_Order	Sub_order	Continent	Country
+1	Pr_1	364	A095	North_America	USA
+2	Pr_10	365	A096	North_America	USA
+3	Pr_1010	513	A	Australasia	New_Zealand
+4	Pr_1022	310	A041	North_America	USA
+5	Pr_1023	311	A042	North_America	USA
+6	Pr_1024	308	A039	North_America	USA
+7	Pr_1026	312	A043	North_America	USA
+8	Pr_1030	313	A044	North_America	USA
+9	Pr_1032	309	A040	North_America	USA
+10	Pr_1033	314	A045	North_America	USA
+11	Pr_1046	315	A046	North_America	USA
+12	Pr_1048	316	A047	North_America	USA
+13	Pr_1049	317	A048	North_America	USA
+14	Pr_1050	318	A049	North_America	USA
+15	Pr_1078	515	B	Australasia	Australia
+16	Pr_1086	516	B	Australasia	Australia
+17	Pr_1093	517	B	Australasia	Australia
+18	Pr_1109	529	C	Australasia	Australia
+19	Pr_1120	530	C	Australasia	Australia
+20	Pr_1121	531	C	Australasia	Australia
+21	Pr_1125	381	A112	North_America	USA
+22	Pr_1134	382	A113	North_America	USA
+23	Pr_1142	485	A216	North_America	USA
+24	Pr_1143	406	A137	North_America	USA
+25	Pr_1149	410	A141	North_America	USA
+26	Pr_115	472	A203	North_America	USA
+27	Pr_1150	411	A142	North_America	USA
+28	Pr_1155	233	S	Europe	Gibraltar
+29	Pr_1156	546	D	Australasia	Australia
+30	Pr_1159	NA	NA	Australasia	NA
+31	Pr_116	473	A204	North_America	USA
+32	Pr_1160	532	C	Australasia	Australia
+33	Pr_1163	17	B	Asia	Taiwan
+34	Pr_1164	18	B	Asia	Taiwan
+35	Pr_1166	19	B	Asia	Taiwan
+36	Pr_1171	20	B	Asia	Taiwan
+37	Pr_1173	21	B	Asia	Taiwan
+38	Pr_1175	22	B	Asia	Taiwan
+39	Pr_1176	23	B	Asia	Taiwan
+40	Pr_1179	24	B	Asia	Taiwan
+41	Pr_1180	25	B	Asia	Taiwan
+42	Pr_1181	26	B	Asia	Taiwan
+43	Pr_1184	27	B	Asia	Taiwan
+44	Pr_1206	483	A214	North_America	USA
+45	Pr_1207	484	A215	North_America	USA
+46	Pr_1209	482	A213	North_America	USA
+47	Pr_1211	533	C	Australasia	Australia
+48	Pr_1213	534	C	Australasia	Australia
+49	Pr_1215	535	C	Australasia	Australia
+50	Pr_1216	536	C	Australasia	Australia
+51	Pr_1217	537	C	Australasia	Australia
+52	Pr_1230	486	A217	North_America	USA
+53	Pr_1231	487	A218	North_America	USA
+54	Pr_1232	504	A	Australasia	New_Zealand
+55	Pr_1238	505	A	Australasia	New_Zealand
+56	Pr_1245	506	A	Australasia	New_Zealand
+57	Pr_125	446	A177	North_America	USA
+58	Pr_1251	507	A	Australasia	New_Zealand
+59	Pr_1252	508	A	Australasia	New_Zealand
+60	Pr_1259	509	A	Australasia	New_Zealand
+61	Pr_1260	510	A	Australasia	New_Zealand
+62	Pr_1261	511	A	Australasia	New_Zealand
+63	Pr_1262	512	A	Australasia	New_Zealand
+64	Pr_1269	76	G	Asia	Turkey
+65	Pr_1270	77	G	Asia	Turkey
+66	Pr_1272	78	G	Asia	Turkey
+67	Pr_1275	79	G	Asia	Turkey
+68	Pr_1276	80	G	Asia	Turkey
+69	Pr_1278	81	G	Asia	Turkey
+70	Pr_1279	82	G	Asia	Turkey
+71	Pr_1282	518	B	Australasia	Australia
+72	Pr_1308	519	B	Australasia	Australia
+73	Pr_131	447	A178	North_America	USA
+74	Pr_1326	520	B	Australasia	Australia
+75	Pr_1327	521	B	Australasia	Australia
+76	Pr_1333	522	B	Australasia	Australia
+77	Pr_1347	290	A021	North_America	USA
+78	Pr_1348	291	A022	North_America	USA
+79	Pr_1349	292	A023	North_America	USA
+80	Pr_1352	293	A024	North_America	USA
+81	Pr_1354	294	A025	North_America	USA
+82	Pr_1355	295	A026	North_America	USA
+83	Pr_1356	296	A027	North_America	USA
+84	Pr_1358	412	A143	North_America	Canada
+85	Pr_1360	413	A144	North_America	Canada
+86	Pr_1361	414	A145	North_America	Canada
+87	Pr_1363	415	A146	North_America	Canada
+88	Pr_1364	416	A147	North_America	Canada
+89	Pr_1365	417	A148	North_America	Canada
+90	Pr_1366	418	A149	North_America	Canada
+91	Pr_1367	419	A150	North_America	Canada
+92	Pr_1376	153	L	Europe	Austria
+93	Pr_1381	166	N	Europe	Italy
+94	Pr_1382	167	N	Europe	Italy
+95	Pr_1383	168	N	Europe	Italy
+96	Pr_1384	169	N	Europe	Italy
+97	Pr_1385	170	N	Europe	Italy
+98	Pr_1386	171	N	Europe	Italy
+99	Pr_1394	383	A114	North_America	USA
+100	Pr_1403	384	A115	North_America	USA
+101	Pr_1432	270	A001	North_America	USA
+102	Pr_1434	276	A007	North_America	USA
+103	Pr_1435	277	A008	North_America	USA
+104	Pr_1436	271	A002	North_America	USA
+105	Pr_1437	272	A003	North_America	USA
+106	Pr_1438	273	A004	North_America	USA
+107	Pr_1439	274	A005	North_America	USA
+108	Pr_1440	275	A006	North_America	USA
+109	Pr_1459	375	A106	North_America	USA
+110	Pr_1460	376	A107	North_America	USA
+111	Pr_1461	377	A108	North_America	USA
+112	Pr_1466	428	A159	North_America	USA
+113	Pr_1468	429	A160	North_America	USA
+114	Pr_1472	385	A116	North_America	USA
+115	Pr_1478	386	A117	North_America	USA
+116	Pr_1488	387	A118	North_America	USA
+117	Pr_1491	388	A119	North_America	USA
+118	Pr_1496	389	A120	North_America	USA
+119	Pr_1497	390	A121	North_America	USA
+120	Pr_1498	547	D	Australasia	Australia
+121	Pr_1499	548	D	Australasia	Australia
+122	Pr_1502	549	D	Australasia	Australia
+123	Pr_1503	550	D	Australasia	Australia
+124	Pr_1504	551	D	Australasia	Australia
+125	Pr_1507	552	D	Australasia	Australia
+126	Pr_1509	553	D	Australasia	Australia
+127	Pr_151	460	A191	North_America	USA
+128	Pr_1513	538	C	Australasia	Australia
+129	Pr_1514	539	C	Australasia	Australia
+130	Pr_1515	514	A	Australasia	New_Zealand
+131	Pr_152	461	A192	North_America	USA
+132	Pr_1526	523	B	Australasia	Australia
+133	Pr_1527	524	B	Australasia	Australia
+134	Pr_1528	525	B	Australasia	Australia
+135	Pr_1529	526	B	Australasia	Australia
+136	Pr_154	462	A193	North_America	USA
+137	Pr_168	443	A174	North_America	USA
+138	Pr_169	444	A175	North_America	USA
+139	Pr_170	445	A176	North_America	USA
+140	Pr_171	434	A165	North_America	USA
+141	Pr_176	435	A166	North_America	USA
+142	Pr_177	436	A167	North_America	USA
+143	Pr_178	437	A168	North_America	USA
+144	Pr_179	438	A169	North_America	USA
+145	Pr_180	439	A170	North_America	USA
+146	Pr_1800	392	A123	North_America	USA
+147	Pr_1801	393	A124	North_America	USA
+148	Pr_1802	394	A125	North_America	USA
+149	Pr_1803	395	A126	North_America	USA
+150	Pr_1804	396	A127	North_America	USA
+151	Pr_1806	397	A128	North_America	USA
+152	Pr_181	440	A171	North_America	USA
+153	Pr_1810	527	B	Australasia	Australia
+154	Pr_1814	528	B	Australasia	Australia
+155	Pr_182	441	A172	North_America	USA
+156	Pr_183	442	A173	North_America	USA
+157	Pr_1834	341	A072	North_America	USA
+158	Pr_1835	342	A073	North_America	USA
+159	Pr_1836	343	A074	North_America	USA
+160	Pr_1837	344	A075	North_America	USA
+161	Pr_1838	345	A076	North_America	USA
+162	Pr_1839	346	A077	North_America	USA
+163	Pr_1840	347	A078	North_America	USA
+164	Pr_1841	348	A079	North_America	USA
+165	Pr_1842	349	A080	North_America	USA
+166	Pr_1843	350	A081	North_America	USA
+167	Pr_1844	333	A064	North_America	USA
+168	Pr_1845	540	C	Australasia	Australia
+169	Pr_1848	541	C	Australasia	Australia
+170	Pr_1849	542	C	Australasia	Australia
+171	Pr_1850	543	C	Australasia	Australia
+172	Pr_1851	544	C	Australasia	Australia
+173	Pr_1852	545	C	Australasia	Australia
+174	Pr_1856	380	A111	North_America	USA
+175	Pr_1865	339	A070	North_America	USA
+176	Pr_1868	340	A071	North_America	USA
+177	Pr_1876	378	A109	North_America	USA
+178	Pr_1877	468	A199	North_America	USA
+179	Pr_1878	180	O	Europe	England
+180	Pr_1879	181	O	Europe	England
+181	Pr_1880	182	O	Europe	England
+182	Pr_1881	183	O	Europe	England
+183	Pr_1882	184	O	Europe	England
+184	Pr_1883	185	O	Europe	England
+185	Pr_1884	186	O	Europe	England
+186	Pr_1885	187	O	Europe	England
+187	Pr_1886	188	O	Europe	England
+188	Pr_1887	189	O	Europe	England
+189	Pr_1888	190	O	Europe	England
+190	Pr_1889	191	O	Europe	England
+191	Pr_1890	192	O	Europe	England
+192	Pr_1891	193	O	Europe	England
+193	Pr_1892	194	O	Europe	England
+194	Pr_1895	325	A056	North_America	USA
+195	Pr_1896	326	A057	North_America	USA
+196	Pr_1899	405	A136	North_America	USA
+197	Pr_1901	404	A135	North_America	USA
+198	Pr_1915	246	U	Africa	Algeria
+199	Pr_1916	247	U	Africa	Algeria
+200	Pr_1917	172	N	Europe	Italy
+201	Pr_1918	200	P	Europe	France
+202	Pr_1919	201	P	Europe	France
+203	Pr_1920	202	P	Europe	France
+204	Pr_1921	258	V	Africa	Tunisia
+205	Pr_1922	259	V	Africa	Tunisia
+206	Pr_1923	260	V	Africa	Tunisia
+207	Pr_1924	173	N	Europe	Italy
+208	Pr_1925	248	U	Africa	Algeria
+209	Pr_1926	131	J	Europe	Sweden
+210	Pr_1927	132	J	Europe	Sweden
+211	Pr_1928	154	M	Europe	Greece
+212	Pr_1929	107	F	Europe	Bulgaria
+213	Pr_1930	108	F	Europe	Bulgaria
+214	Pr_1931	109	F	Europe	Bulgaria
+215	Pr_1932	110	F	Europe	Bulgaria
+216	Pr_1933	111	F	Europe	Bulgaria
+217	Pr_1934	112	F	Europe	Bulgaria
+218	Pr_1935	113	F	Europe	Bulgaria
+219	Pr_1936	155	M	Europe	Greece
+220	Pr_1937	156	M	Europe	Greece
+221	Pr_1938	157	M	Europe	Greece
+222	Pr_1939	158	M	Europe	Greece
+223	Pr_1940	159	M	Europe	Greece
+224	Pr_1941	95	E	Europe	Romania
+225	Pr_1942	160	M	Europe	Greece
+226	Pr_1943	161	M	Europe	Greece
+227	Pr_1944	162	M	Europe	Greece
+228	Pr_1945	163	M	Europe	Greece
+229	Pr_1946	249	U	Africa	Algeria
+230	Pr_1947	250	U	Africa	Algeria
+231	Pr_1948	251	U	Africa	Algeria
+232	Pr_1949	28	C	Asia	China
+233	Pr_195	430	A161	North_America	USA
+234	Pr_1950	29	C	Asia	China
+235	Pr_1951	30	C	Asia	China
+236	Pr_1952	31	C	Asia	China
+237	Pr_1953	32	C	Asia	China
+238	Pr_1954	33	C	Asia	China
+239	Pr_1955	34	C	Asia	China
+240	Pr_1956	35	C	Asia	China
+241	Pr_1957	36	C	Asia	China
+242	Pr_1958	37	C	Asia	China
+243	Pr_1959	38	C	Asia	China
+244	Pr_196	431	A162	North_America	USA
+245	Pr_1960	39	C	Asia	China
+246	Pr_1961	40	C	Asia	China
+247	Pr_1963	41	C	Asia	China
+248	Pr_1964	42	C	Asia	China
+249	Pr_1965	43	C	Asia	China
+250	Pr_1966	44	C	Asia	China
+251	Pr_1967	45	C	Asia	China
+252	Pr_1968	93	D	Europe	Ukraine
+253	Pr_1969	94	D	Europe	Ukraine
+254	Pr_1970	195	O	Europe	England
+255	Pr_1971	196	O	Europe	England
+256	Pr_1972	197	O	Europe	England
+257	Pr_1973	174	N	Europe	Italy
+258	Pr_1974	213	R	Europe	Spain
+259	Pr_1975	214	R	Europe	Spain
+260	Pr_1976	203	P	Europe	France
+261	Pr_1977	204	P	Europe	France
+262	Pr_1978	205	P	Europe	France
+263	Pr_1979	206	P	Europe	France
+264	Pr_1980	207	P	Europe	France
+265	Pr_1981	175	N	Europe	Italy
+266	Pr_1982	215	R	Europe	Spain
+267	Pr_1983	176	N	Europe	Italy
+268	Pr_1984	216	R	Europe	Spain
+269	Pr_1985	217	R	Europe	Spain
+270	Pr_1986	218	R	Europe	Spain
+271	Pr_1987	219	R	Europe	Spain
+272	Pr_1988	220	R	Europe	Spain
+273	Pr_1989	177	N	Europe	Italy
+274	Pr_199	432	A163	North_America	USA
+275	Pr_1990	401	A132	North_America	Mexico
+276	Pr_1991	402	A133	North_America	Mexico
+277	Pr_1992	403	A134	North_America	Mexico
+278	Pr_1993	400	A131	North_America	Mexico
+279	Pr_1994	114	G	Europe	Poland
+280	Pr_1995	115	G	Europe	Poland
+281	Pr_1996	116	G	Europe	Poland
+282	Pr_1997	117	G	Europe	Poland
+283	Pr_1998	118	G	Europe	Poland
+284	Pr_1999	119	G	Europe	Poland
+285	Pr_2	366	A097	North_America	USA
+286	Pr_200	433	A164	North_America	USA
+287	Pr_2000	120	G	Europe	Poland
+288	Pr_2001	121	G	Europe	Poland
+289	Pr_2002	122	G	Europe	Poland
+290	Pr_2003	123	G	Europe	Poland
+291	Pr_2004	124	G	Europe	Poland
+292	Pr_2005	125	G	Europe	Poland
+293	Pr_2006	252	U	Africa	Algeria
+294	Pr_2007	46	C	Asia	China
+295	Pr_2008	47	C	Asia	China
+296	Pr_2010	52	E	Asia	Japan
+297	Pr_2011	53	E	Asia	Japan
+298	Pr_2012	54	E	Asia	Japan
+299	Pr_2013	261	V	Africa	Tunisia
+300	Pr_2014	234	T	Africa	Morocco
+301	Pr_2015	253	U	Africa	Algeria
+302	Pr_2016	254	U	Africa	Algeria
+303	Pr_2017	255	U	Africa	Algeria
+304	Pr_2018	256	U	Africa	Algeria
+305	Pr_2019	262	V	Africa	Tunisia
+306	Pr_202	426	A157	North_America	USA
+307	Pr_2020	263	V	Africa	Tunisia
+308	Pr_2021	264	V	Africa	Tunisia
+309	Pr_2022	265	V	Africa	Tunisia
+310	Pr_2023	266	V	Africa	Tunisia
+311	Pr_2024	267	V	Africa	Tunisia
+312	Pr_2025	268	V	Africa	Tunisia
+313	Pr_2026	164	MN	Europe	Greece
+314	Pr_2027	165	MN	Europe	Greece
+315	Pr_2028	235	T	Africa	Morocco
+316	Pr_2029	236	T	Africa	Morocco
+317	Pr_2030	257	U	Africa	Algeria
+318	Pr_2031	178	N	Europe	Italy
+319	Pr_2032	237	T	Africa	Morocco
+320	Pr_2033	238	T	Africa	Morocco
+321	Pr_2034	239	T	Africa	Morocco
+322	Pr_2035	240	T	Africa	Morocco
+323	Pr_2036	241	T	Africa	Morocco
+324	Pr_2037	242	T	Africa	Morocco
+325	Pr_2038	243	T	Africa	Morocco
+326	Pr_2039	244	T	Africa	Morocco
+327	Pr_204	427	A158	North_America	USA
+328	Pr_2040	208	P	Europe	France
+329	Pr_2041	179	N	Europe	Italy
+330	Pr_2042	83	C	Europe	Malta
+331	Pr_2043	84	C	Europe	Malta
+332	Pr_2044	85	C	Europe	Malta
+333	Pr_2045	86	C	Europe	Malta
+334	Pr_2046	87	C	Europe	Malta
+335	Pr_2047	88	C	Europe	Malta
+336	Pr_2048	89	C	Europe	Malta
+337	Pr_2049	221	R	Europe	Spain
+338	Pr_2050	245	T	Africa	Morocco
+339	Pr_2051	90	C	Europe	Malta
+340	Pr_2052	91	C	Europe	Malta
+341	Pr_2053	92	C	Europe	Malta
+342	Pr_2054	96	E	Europe	Romania
+343	Pr_2055	209	P	Europe	France
+344	Pr_2056	126	H	Europe	Estonia
+345	Pr_2057	127	H	Europe	Estonia
+346	Pr_2058	128	H	Europe	Estonia
+347	Pr_2059	129	H	Europe	Estonia
+348	Pr_2060	210	P	Europe	France
+349	Pr_2061	222	R	Europe	Spain
+350	Pr_2062	97	E	Europe	Romania
+351	Pr_2063	98	E	Europe	Romania
+352	Pr_2064	269	V	Africa	Tunisia
+353	Pr_2065	223	R	Europe	Spain
+354	Pr_2066	224	R	Europe	Spain
+355	Pr_2067	99	E	Europe	Romania
+356	Pr_2068	100	E	Europe	Romania
+357	Pr_2069	101	E	Europe	Romania
+358	Pr_2070	102	E	Europe	Romania
+359	Pr_2071	103	E	Europe	Romania
+360	Pr_2072	104	E	Europe	Romania
+361	Pr_2073	105	E	Europe	Romania
+362	Pr_2074	106	E	Europe	Romania
+363	Pr_2075	211	P	Europe	France
+364	Pr_2076	489	A220	North_America	USA
+365	Pr_2077	398	A129	North_America	Mexico
+366	Pr_2078	493	A224	North_America	USA
+367	Pr_2079	399	A130	North_America	Mexico
+368	Pr_208	424	A155	North_America	USA
+369	Pr_2080	494	A225	North_America	USA
+370	Pr_2081	490	A221	North_America	USA
+371	Pr_2082	488	A219	North_America	USA
+372	Pr_2083	491	A222	North_America	USA
+373	Pr_2084	492	A223	North_America	USA
+374	Pr_2087	336	A067	North_America	USA
+375	Pr_2089	55	E	Asia	Russia
+376	Pr_209	425	A156	North_America	USA
+377	Pr_2090	4	AB	Asia	Russia
+378	Pr_2096	1	A	Asia	Russia
+379	Pr_2099	2	A	Asia	Russia
+380	Pr_2100	3	A	Asia	Russia
+381	Pr_2101	5	AB	Asia	Russia
+382	Pr_2102	6	AB	Asia	Russia
+383	Pr_2103	7	AB	Asia	Russia
+384	Pr_2104	8	AB	Asia	Russia
+385	Pr_2105	9	AB	Asia	Russia
+386	Pr_2106	10	AB	Asia	Russia
+387	Pr_2107	11	AB	Asia	Russia
+388	Pr_2108	12	AB	Asia	Russia
+389	Pr_2109	13	AB	Asia	Russia
+390	Pr_2110	14	AB	Asia	Russia
+391	Pr_2111	48	D	Asia	South_Korea
+392	Pr_2112	49	D	Asia	South_Korea
+393	Pr_2117	50	D	Asia	South_Korea
+394	Pr_2123	51	D	Asia	South_Korea
+395	Pr_221	422	A153	North_America	USA
+396	Pr_231	423	A154	North_America	USA
+397	Pr_249	420	A151	North_America	USA
+398	Pr_250	421	A152	North_America	USA
+399	Pr_254	448	A179	North_America	USA
+400	Pr_256	407	A138	North_America	USA
+401	Pr_257	408	A139	North_America	USA
+402	Pr_261	409	A140	North_America	USA
+403	Pr_293	322	A053	North_America	Canada
+404	Pr_3	367	A098	North_America	USA
+405	Pr_301	323	A054	North_America	Canada
+406	Pr_312	324	A055	North_America	Canada
+407	Pr_347	391	A122	North_America	USA
+408	Pr_357	450	A181	North_America	USA
+409	Pr_358	451	A182	North_America	USA
+410	Pr_359	463	A194	North_America	USA
+411	Pr_363	449	A180	North_America	USA
+412	Pr_369	452	A183	North_America	USA
+413	Pr_370	453	A184	North_America	USA
+414	Pr_371	454	A185	North_America	USA
+415	Pr_372	455	A186	North_America	USA
+416	Pr_373	456	A187	North_America	USA
+417	Pr_374	457	A188	North_America	USA
+418	Pr_375	458	A189	North_America	USA
+419	Pr_377	459	A190	North_America	USA
+420	Pr_383	285	A016	North_America	USA
+421	Pr_384	286	A017	North_America	USA
+422	Pr_386	287	A018	North_America	USA
+423	Pr_391	288	A019	North_America	USA
+424	Pr_392	466	A197	North_America	USA
+425	Pr_4	368	A099	North_America	USA
+426	Pr_40	305	A036	North_America	USA
+427	Pr_41	306	A037	North_America	USA
+428	Pr_43	307	A038	North_America	USA
+429	Pr_441	469	A200	North_America	USA
+430	Pr_442	470	A201	North_America	USA
+431	Pr_473	337	A068	North_America	USA
+432	Pr_474	338	A069	North_America	USA
+433	Pr_475	471	A202	North_America	USA
+434	Pr_487	281	A012	North_America	USA
+435	Pr_496	289	A020	North_America	USA
+436	Pr_5	369	A100	North_America	USA
+437	Pr_51	298	A029	North_America	USA
+438	Pr_514	280	A011	North_America	USA
+439	Pr_531	351	A082	North_America	USA
+440	Pr_538	374	A105	North_America	USA
+441	Pr_540	283	A014	North_America	USA
+442	Pr_57	299	A030	North_America	USA
+443	Pr_570	284	A015	North_America	USA
+444	Pr_589	278	A009	North_America	USA
+445	Pr_59	297	A028	North_America	USA
+446	Pr_590	279	A010	North_America	USA
+447	Pr_597	327	A058	North_America	Canada
+448	Pr_6	370	A101	North_America	USA
+449	Pr_606	321	A052	North_America	Canada
+450	Pr_614	300	A031	North_America	USA
+451	Pr_63	334	A065	North_America	USA
+452	Pr_65	331	A062	North_America	USA
+453	Pr_67	319	A050	North_America	USA
+454	Pr_68	320	A051	North_America	USA
+455	Pr_69	332	A063	North_America	USA
+456	Pr_7	371	A102	North_America	USA
+457	Pr_700	495	A226	North_America	USA
+458	Pr_701	496	A227	North_America	USA
+459	Pr_702	497	A228	North_America	USA
+460	Pr_703	498	A229	North_America	USA
+461	Pr_704	499	A230	North_America	USA
+462	Pr_706	500	A231	North_America	USA
+463	Pr_707	501	A232	North_America	USA
+464	Pr_708	502	A233	North_America	USA
+465	Pr_709	503	A234	North_America	USA
+466	Pr_710	352	A083	North_America	USA
+467	Pr_713	353	A084	North_America	USA
+468	Pr_718	354	A085	North_America	USA
+469	Pr_720	355	A086	North_America	USA
+470	Pr_722	356	A087	North_America	USA
+471	Pr_738	357	A088	North_America	USA
+472	Pr_739	358	A089	North_America	USA
+473	Pr_744	359	A090	North_America	USA
+474	Pr_747	360	A091	North_America	USA
+475	Pr_748	361	A092	North_America	USA
+476	Pr_75	329	A060	North_America	USA
+477	Pr_750	362	A093	North_America	USA
+478	Pr_751	363	A094	North_America	USA
+479	Pr_76	330	A061	North_America	USA
+480	Pr_761	282	A013	North_America	USA
+481	Pr_763	480	A211	North_America	USA
+482	Pr_764	481	A212	North_America	USA
+483	Pr_765	478	A209	North_America	USA
+484	Pr_766	479	A210	North_America	USA
+485	Pr_768	475	A206	North_America	USA
+486	Pr_769	477	A208	North_America	USA
+487	Pr_771	476	A207	North_America	USA
+488	Pr_772	474	A205	North_America	USA
+489	Pr_775	212	Q	Europe	Portugal
+490	Pr_779	198	O	Europe	England
+491	Pr_784	199	O	Europe	England
+492	Pr_793	130	I	Europe	Finland
+493	Pr_8	372	A103	North_America	USA
+494	Pr_84	335	A066	North_America	USA
+495	Pr_842	225	R	Europe	Spain
+496	Pr_867	226	R	Europe	Spain
+497	Pr_869	227	R	Europe	Spain
+498	Pr_876	228	R	Europe	Spain
+499	Pr_877	229	R	Europe	Spain
+500	Pr_879	230	R	Europe	Spain
+501	Pr_88	467	A198	North_America	USA
+502	Pr_880	231	R	Europe	Spain
+503	Pr_882	232	R	Europe	Spain
+504	Pr_887	56	E	Asia	Japan
+505	Pr_888	57	E	Asia	Japan
+506	Pr_891	58	E	Asia	Japan
+507	Pr_893	59	E	Asia	Japan
+508	Pr_894	60	E	Asia	Japan
+509	Pr_896	301	A032	North_America	USA
+510	Pr_898	302	A033	North_America	USA
+511	Pr_899	303	A034	North_America	USA
+512	Pr_9	373	A104	North_America	USA
+513	Pr_902	304	A035	North_America	USA
+514	Pr_909	379	A110	North_America	USA
+515	Pr_911	554	E	Australasia	Australia
+516	Pr_913	555	E	Australasia	Australia
+517	Pr_914	556	E	Australasia	Australia
+518	Pr_915	557	E	Australasia	Australia
+519	Pr_916	558	E	Australasia	Australia
+520	Pr_919	61	F	Asia	Georgia
+521	Pr_92	464	A195	North_America	USA
+522	Pr_922	62	F	Asia	Georgia
+523	Pr_923	63	F	Asia	Georgia
+524	Pr_926	64	F	Asia	Georgia
+525	Pr_927	65	F	Asia	Georgia
+526	Pr_928	66	F	Asia	Georgia
+527	Pr_929	67	F	Asia	Georgia
+528	Pr_930	68	F	Asia	Georgia
+529	Pr_931	69	F	Asia	Georgia
+530	Pr_936	70	F	Asia	Georgia
+531	Pr_938	71	F	Asia	Georgia
+532	Pr_939	72	F	Asia	Georgia
+533	Pr_940	73	F	Asia	Georgia
+534	Pr_941	74	F	Asia	Georgia
+535	Pr_942	75	F	Asia	Georgia
+536	Pr_944	133	K	Europe	Czech_Republic
+537	Pr_946	134	K	Europe	Czech_Republic
+538	Pr_948	135	K	Europe	Czech_Republic
+539	Pr_95	465	A196	North_America	USA
+540	Pr_950	136	K	Europe	Czech_Republic
+541	Pr_951	137	K	Europe	Czech_Republic
+542	Pr_954	138	K	Europe	Czech_Republic
+543	Pr_955	139	K	Europe	Czech_Republic
+544	Pr_957	140	K	Europe	Czech_Republic
+545	Pr_959	141	K	Europe	Czech_Republic
+546	Pr_960	142	K	Europe	Czech_Republic
+547	Pr_961	143	K	Europe	Czech_Republic
+548	Pr_965	144	K	Europe	Czech_Republic
+549	Pr_970	145	K	Europe	Czech_Republic
+550	Pr_975	146	K	Europe	Czech_Republic
+551	Pr_976	147	K	Europe	Czech_Republic
+552	Pr_977	148	K	Europe	Czech_Republic
+553	Pr_982	149	K	Europe	Czech_Republic
+554	Pr_983	150	K	Europe	Czech_Republic
+555	Pr_985	151	K	Europe	Czech_Republic
+556	Pr_988	152	K	Europe	Czech_Republic
+557	Pr_991	328	A059	North_America	Canada
+558	Pr_992	15	AB	Asia	Russia
+559	Pr_993	16	AB	Asia	Russia
