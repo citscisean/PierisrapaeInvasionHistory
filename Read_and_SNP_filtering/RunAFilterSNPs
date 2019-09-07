@@ -119,7 +119,7 @@ awk '(NR>1) && ($5 < 0.75 ) ' ./Filtering_GATK/PierisProject_101217_biSNPs_Prapa
 
 ### FIND SEX LINKED LOCI 
 
-# Increase GQ filter to 50
+# Increase GQ filter to 30
 ./vcftools/bin/vcftools --gzvcf ./Filtering_GATK/PierisProject_101217_biSNPs_Prapae_hard_GQ20_maf01_1X50ind_95depth_75imiss_10X75ind.vcf.gz \
 --remove-indv Pr_1159 \
 --minGQ 30 \
